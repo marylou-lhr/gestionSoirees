@@ -22,5 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Exemple de route
-Route::get('/items', 'ItemController@index');
+Route::get('/soirees', 'SoireeController@index');
+Route::get('/goodies', 'GoodieController@index');
+Route::get('/reservations', 'ReservationController@index');

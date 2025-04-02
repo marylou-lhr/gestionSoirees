@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('soirees', function (Blueprint $table) {
             $table->string('nom')->primary();
+            $table->string('lieu');
             $table->timestamp('dateHeure');
             $table->integer('prixEntree');
             $table->integer('capaciteMax');

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('goodies', function (Blueprint $table) {
             $table->string('nom')->primary();
             $table->integer('quantite');
+            $table->string('description');
             $table->integer('coutUnitaire');
         });
     }

@@ -25,13 +25,14 @@ class ReservationController extends Controller
     {
         //Champs à valider
         $validated = $request->validate([
+            'id' => 'required|number',
             'nomEtud' => 'required|string|max:100',
             'emailEtud' => 'required|string|max:100',
             'numTel' => 'required|string|min:10|max:10',
             'nomSoiree' => 'required|string|max:100',
             'dateReserv' => 'required|date',
             'statutReserv' => 'required|string',
-            'goodieAttribue' => 'required|string'
+            'goodieAttribue' => 'string'
         ]);
 
         //Création du réservation

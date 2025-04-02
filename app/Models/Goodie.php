@@ -16,4 +16,6 @@ class Goodie extends Model
         'description',
         'coutUnitaire'
     ];
+
+    public $timestamps = false;
 }

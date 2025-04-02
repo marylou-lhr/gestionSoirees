@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reservations', function (Blueprint $table) {
-            $table->string('emailEtud')->primary();
+            $table->id('id');
+            $table->string('emailEtud');
             $table->string('nomEtud');
             $table->string('numTel');
             $table->string('nomSoiree')->references('nom')->on('soirees');

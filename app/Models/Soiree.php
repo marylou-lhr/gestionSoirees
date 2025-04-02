@@ -18,4 +18,6 @@ class Soiree extends Model
         'capaciteMax',
         'theme'
     ];
+
+    public $timestamps = false;
 }
