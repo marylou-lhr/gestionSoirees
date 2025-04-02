@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Goodie extends Model
 {
     use HasFactory;
+
+    public $primaryKey = 'nom';
+
+    protected $fillable = [
+        'quantite',
+        'description',
+        'coutUnitaire'
+    ];
 }

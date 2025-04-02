@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Soiree extends Model
 {
     use HasFactory;
+
+    public $primaryKey = 'nom';
+
+    protected $fillable = [
+        'lieu',
+        'dateHeure',
+        'prixEntree',
+        'capaciteMax',
+        'theme'
+    ];
 }

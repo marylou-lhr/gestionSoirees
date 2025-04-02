@@ -8,58 +8,86 @@ use Illuminate\Http\Request;
 class GoodieController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Affiche la liste des goodies
      */
     public function index()
     {
-        //
+        //Récupère tous les goodies
+        $goodies = Goodie::all();
+        //Affiche toutes les informations de chaque goodie dans un JSON
+        return response()->json($goodies);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Permet de créer un goodie
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        //Champs à valider
+        $validated = $request->validate([
+            'nom' => 'required|string|max:100',
+            'quantite' => 'required|integer',
+            'description' => 'required|string|max:120',
+            'coutUnitaire' => 'required|integer'
+        ]);
+
+        //Création du goodie
+        $goodieCree = Goodie::create($validated);
+
+        //Message de confirmation de création
+        return response()->json($goodieCree, 201);
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * Affiche un goodie spécifique.
      */
     public function show(string $id)
     {
-        //
+        $goodie = Goodie::findOrFail($id);
+
+        if (!$goodie){
+            return response()->json(['message' => 'Goodie non trouvé.'], 404);
+        } else {
+            return response()->json($goodie);
+        }
+        
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Met à jour les infos d'un goodie
      */
     public function update(Request $request, string $id)
     {
-        //
+        //Champs à valider
+        $validated = $request->validate([
+            'nom' => 'required|string|max:100',
+            'quantite' => 'required|integer',
+            'description' => 'required|string|max:120',
+            'coutUnitaire' => 'required|integer'
+        ]);
+        
+        $goodie = Goodie::findOrFail($id);
+
+        if (!$goodie) {
+            return response()->json(['error' => "Le goodie n'existe pas."], 404);
+        } else {
+            $goodie->update($validated);
+            show($id);
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Supprime le goodie
      */
     public function destroy(string $id)
     {
-        //
+        $goodie = Goodie::findOrFail($id);
+
+        if (!$goodie) {
+            return response()->json(['error' => "Le goodie n'existe pas."], 404);
+        } else {
+            $goodie->delete();
+            return response()->json(['message' => 'Goodie supprimé avec succès.']);
+        } 
     }
 }

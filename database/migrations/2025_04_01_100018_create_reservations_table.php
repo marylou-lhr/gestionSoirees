@@ -12,8 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reservations', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->string('emailEtud')->primary();
+            $table->string('nomEtud');
+            $table->string('numTel');
+            $table->string('nomSoiree')->references('nom')->on('soirees');
+            $table->timestamp('dateReserv');
+            $table->string('statutReserv');
+            $table->string('goodieAttribue')->references('nom')->on('goodies');
         });
     }
 

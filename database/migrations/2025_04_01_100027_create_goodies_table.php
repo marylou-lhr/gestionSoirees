@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('goodies', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->string('nom')->primary();
+            $table->integer('quantite');
+            $table->integer('coutUnitaire');
         });
     }
 

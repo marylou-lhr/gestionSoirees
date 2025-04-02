@@ -8,60 +8,90 @@ use Illuminate\Http\Request;
 class SoireeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Affiche la liste des soirées
      */
     public function index()
     {
-        //Exemple
-        $items = Item::all();
-        return response()->json($items);
+        //Récupère tous les soirées
+        $soirees = Soiree::all();
+        //Affiche toutes les informations de chaque soirée dans un JSON
+        return response()->json($soirees);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Permet de créer un soirée
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        //Champs à valider
+        $validated = $request->validate([
+            'nom' => 'required|string|max:100',
+            'lieu' => 'required|string|max:100',
+            'dateHeure' => 'required|date_format:d/m/Y H:i:s',
+            'prixEntree' => 'required|integer',
+            'capaciteMax' => 'required|integer',
+            'theme' => 'required|string|max:100'
+        ]);
+
+        //Création du soirée
+        $soireeCree = Soiree::create($validated);
+
+        //Message de confirmation de création
+        return response()->json($soireeCree, 201);
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * Affiche un soirée spécifique.
      */
     public function show(string $id)
     {
-        //
+        $soiree = Soiree::findOrFail($id);
+
+        if (!$soiree){
+            return response()->json(['message' => 'Soirée non trouvée.'], 404);
+        } else {
+            return response()->json($soiree);
+        }
+        
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Met à jour les infos d'un soirée
      */
     public function update(Request $request, string $id)
     {
-        //
+        //Champs à valider
+        $validated = $request->validate([
+            'nom' => 'required|string|max:100',
+            'lieu' => 'required|string|max:100',
+            'dateHeure' => 'required|date',
+            'prixEntree' => 'required|integer',
+            'capaciteMax' => 'required|integer',
+            'theme' => 'required|string|max:100'
+        ]);
+        
+        $soiree = Soiree::findOrFail($id);
+
+        if (!$soiree) {
+            return response()->json(['error' => "La soirée n'existe pas."], 404);
+        } else {
+            $soiree->update($validated);
+            show($id);
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Supprime le soirée
      */
     public function destroy(string $id)
     {
-        //
+        $soiree = Soiree::findOrFail($id);
+
+        if (!$soiree) {
+            return response()->json(['error' => "La soirée n'existe pas."], 404);
+        } else {
+            $soiree->delete();
+            return response()->json(['message' => 'Soirée supprimée avec succès.']);
+        } 
     }
 }
