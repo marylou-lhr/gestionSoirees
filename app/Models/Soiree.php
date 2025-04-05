@@ -10,6 +10,7 @@ class Soiree extends Model
     use HasFactory;
 
     public $primaryKey = 'nom';
+    protected $keyType = 'string'; 
 
     protected $fillable = [
         'lieu',

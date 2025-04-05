@@ -12,14 +12,14 @@ class SoireeController extends Controller
      */
     public function index()
     {
-        //Récupère tous les soirées
+        //Récupère toutes les soirées
         $soirees = Soiree::all();
         //Affiche toutes les informations de chaque soirée dans un JSON
         return response()->json($soirees);
     }
 
     /**
-     * Permet de créer un soirée
+     * Permet de créer une soirée
      */
     public function create(Request $request)
     {
@@ -33,7 +33,7 @@ class SoireeController extends Controller
             'theme' => 'required|string|max:100'
         ]);
 
-        //Création du soirée
+        //Création de la soirée
         $soireeCree = Soiree::create($validated);
 
         //Message de confirmation de création
@@ -41,7 +41,7 @@ class SoireeController extends Controller
     }
 
     /**
-     * Affiche un soirée spécifique.
+     * Affiche une soirée spécifique.
      */
     public function show(string $id)
     {
@@ -56,7 +56,7 @@ class SoireeController extends Controller
     }
 
     /**
-     * Met à jour les infos d'un soirée
+     * Met à jour les infos d'une soirée
      */
     public function update(Request $request, string $id)
     {
@@ -81,7 +81,7 @@ class SoireeController extends Controller
     }
 
     /**
-     * Supprime le soirée
+     * Supprime la soirée
      */
     public function destroy(string $id)
     {
