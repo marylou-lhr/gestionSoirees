@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('soirees', function (Blueprint $table) {
-            $table->string('nom')->primary();
+            $table->increments('id');
+            $table->string('nom');
             $table->string('lieu');
             $table->timestamp('dateHeure');
             $table->integer('prixEntree');

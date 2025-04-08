@@ -9,10 +9,10 @@ class Soiree extends Model
 {
     use HasFactory;
 
-    public $primaryKey = 'nom';
-    protected $keyType = 'string'; 
+    public $primaryKey = 'id';
 
     protected $fillable = [
+        'nom',
         'lieu',
         'dateHeure',
         'prixEntree',

@@ -9,10 +9,10 @@ class Goodie extends Model
 {
     use HasFactory;
 
-    public $primaryKey = 'nom';
-    protected $keyType = 'string'; 
+    public $primaryKey = 'id';
 
     protected $fillable = [
+        'nom',
         'quantite',
         'description',
         'coutUnitaire'

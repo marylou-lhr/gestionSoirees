@@ -72,8 +72,44 @@ class GoodieController extends Controller
             return response()->json(['error' => "Le goodie n'existe pas."], 404);
         } else {
             $goodie->update($validated);
-            show($id);
         }
+    }
+
+    /**
+     * Augmente la quantité d'un goodie de 1
+     */
+    public function increaseCount($id)
+    {
+        $goodie = Goodie::find($id);
+
+        if (!$goodie) {
+            return response()->json(['message' => 'Goodie non trouvé'], 404);
+        }
+
+        $goodie->quantite++;
+        $goodie->save();
+
+        return response()->json(['quantite' => $goodie->quantite]);
+    }
+
+    /**
+     * Baisse la quantité d'un goodie de 1
+     */
+    public function decreaseCount($id)
+    {
+        $goodie = Goodie::find($id);
+
+        if (!$goodie) {
+            return response()->json(['message' => 'Goodie non trouvé'], 404);
+        }
+
+        if ($goodie->quantite > 0) {
+            $goodie->quantite--;
+            $goodie->save();
+            return response()->json(['quantite' => $goodie->quantite]);
+        }
+
+        return response()->json(['message' => 'Quantité déjà à zéro'], 400);
     }
 
     /**

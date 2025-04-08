@@ -28,6 +28,8 @@ Route::delete('/soirees/{id}', [SoireeController::class, 'destroy']);
 Route::get('/goodies', [GoodieController::class, 'index']);
 Route::post('/goodies', [GoodieController::class, 'create']);
 Route::put('/goodies/{id}', [GoodieController::class, 'update']);
+Route::put('/goodies/{id}/increaseCount', [GoodieController::class, 'increaseCount']);
+Route::put('/goodies/{id}/decreaseCount', [GoodieController::class, 'decreaseCount']);
 Route::delete('/goodies/{id}', [GoodieController::class, 'destroy']);
 
 //Routes autour des réservations
